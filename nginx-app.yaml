@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/sanjay-s-new/kubernetis.git
     targetRevision: main
-    path: .   # <- Replace this with the folder containing your manifests, e.g. '.' or 'manifests'
+    path: .   # Root of the repo — correct for your structure
   destination:
     server: https://kubernetes.default.svc
     namespace: default
