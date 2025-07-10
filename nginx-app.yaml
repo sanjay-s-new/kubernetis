@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx-app         # Change to your app name
-  namespace: argocd       # Must be 'argocd'
+  name: nginx-app
+  namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/sanjay-s-new/kubernetis.git
     targetRevision: main
-    path: manifests       # This should be the folder containing your YAMLs
+    path: manifests
   destination:
     server: https://kubernetes.default.svc
-    namespace: default    # Where to deploy the app
+    namespace: default
   syncPolicy:
-    automated:            # Auto-sync changes from Git
+    automated:
       prune: true
       selfHeal: true
 
