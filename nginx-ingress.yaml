@@ -9,14 +9,14 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: sanjay.nginx.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: nginx-deployment
-            port:
-              number: 80
+    - host: anjay.nginx.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-deployment
+                port:
+                  number: 80
 

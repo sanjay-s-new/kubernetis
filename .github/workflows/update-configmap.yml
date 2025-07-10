@@ -1,0 +1,37 @@
+name: Auto Update ConfigMap from index.html
+
+on:
+  push:
+    paths:
+      - index.html
+
+jobs:
+  update-configmap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Update ConfigMap YAML
+        run: |
+          INDEX_CONTENT=$(<index.html)
+          INDEX_ESCAPED=$(jq -Rs . <<< "$INDEX_CONTENT")
+
+          cat <<EOF > nginx-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-nginx-html
+  namespace: default
+data:
+  index.html: $(jq -r <<< "$INDEX_ESCAPED" | sed 's/^/    /')
+EOF
+
+      - name: Commit & Push Updated ConfigMap
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add nginx-configmap.yaml
+          git commit -m "Auto update ConfigMap from index.html"
+          git push
+

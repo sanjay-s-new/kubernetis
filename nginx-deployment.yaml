@@ -13,12 +13,18 @@ spec:
     metadata:
       labels:
         app: nginx
+      annotations:
+        redeploy-timestamp: "{{ now }}"  # this gets replaced if needed to force pod restart
     spec:
       containers:
         - name: nginx
-          image: sanjaydockerhub/nginx-custom:latest  # Use your actual image
+          image: nginx:latest
           ports:
             - containerPort: 80
+          volumeMounts:
+            - name: html-volume
+              mountPath: /usr/share/nginx/html
+              readOnly: true
           livenessProbe:
             httpGet:
               path: /
@@ -31,4 +37,8 @@ spec:
               port: 80
             initialDelaySeconds: 5
             periodSeconds: 10
+      volumes:
+        - name: html-volume
+          configMap:
+            name: custom-nginx-html
 
