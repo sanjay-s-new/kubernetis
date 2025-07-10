@@ -16,13 +16,9 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:latest
+          image: sanjaydockerhub/nginx-custom:latest  # Use your actual image
           ports:
             - containerPort: 80
-          volumeMounts:
-            - name: html-volume
-              mountPath: /usr/share/nginx/html
-              readOnly: true
           livenessProbe:
             httpGet:
               path: /
@@ -35,8 +31,4 @@ spec:
               port: 80
             initialDelaySeconds: 5
             periodSeconds: 10
-      volumes:
-        - name: html-volume
-          configMap:
-            name: custom-nginx-html
 
