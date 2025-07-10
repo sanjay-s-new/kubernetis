@@ -23,4 +23,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: your-dockerhub-username/your-image-name:latest
+        tags: sanjayanju321/nginx:latest
